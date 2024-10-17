@@ -17,4 +17,41 @@ test('Stylings', () => {
     '<p><s>strikethrough</s></p>',
   );
   expect(md.render('++underline++').trim()).toBe('<p><ins>underline</ins></p>');
+  expect(md.render('==mark==').trim()).toBe('<p><mark>mark</mark></p>');
+});
+
+test('tables', () => {
+  expect(
+    md
+      .render(
+        `| Command | Description |
+| --- | --- |
+| command 1 | desc 1 |
+| command 2 | desc 2 |`,
+      )
+      .trim(),
+  ).toBe(`<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>command 1</td>
+<td>desc 1</td>
+</tr>
+<tr>
+<td>command 2</td>
+<td>desc 2</td>
+</tr>
+</tbody>
+</table>`);
+});
+
+test('HTML', () => {
+  expect(md.render('<strong>hello</strong>').trim()).toBe(
+    '<p><strong>hello</strong></p>',
+  );
 });
