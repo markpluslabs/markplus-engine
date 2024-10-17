@@ -61,3 +61,59 @@ test('sub and sup', () => {
   expect(md.render('2^10^').trim()).toBe('<p>2<sup>10</sup></p>');
   expect(md.render('29^th^').trim()).toBe('<p>29<sup>th</sup></p>');
 });
+
+test('footnote inline', () => {
+  expect(
+    md
+      .render(
+        `Here is an inline note.^[Inlines notes are easier to write, since
+you don't have to pick an identifier and move down to type the
+note.]`,
+      )
+      .trim(),
+  )
+    .toBe(`<p>Here is an inline note.<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>Inlines notes are easier to write, since
+you don't have to pick an identifier and move down to type the
+note. <a href="#fnref1" class="footnote-backref">\u21a9\uFE0E</a></p>
+</li>
+</ol>
+</section>`);
+});
+
+test('footnote block', () => {
+  expect(
+    md
+      .render(
+        `Here is a footnote reference,[^1] and another.[^longnote]
+
+[^1]: Here is the footnote.
+
+[^longnote]: Here's one with multiple blocks.
+
+    Subsequent paragraphs are indented to show that they
+belong to the previous footnote.
+
+This paragraph won't be part of the note, because it
+isn't indented.`,
+      )
+      .trim(),
+  )
+    .toBe(`<p>Here is a footnote reference,<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup> and another.<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></p>
+<p>This paragraph won't be part of the note, because it
+isn't indented.</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>Here is the footnote. <a href="#fnref1" class="footnote-backref">\u21a9\uFE0E</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>Here's one with multiple blocks.</p>
+<p>Subsequent paragraphs are indented to show that they
+belong to the previous footnote. <a href="#fnref2" class="footnote-backref">\u21a9\uFE0E</a></p>
+</li>
+</ol>
+</section>`);
+});
