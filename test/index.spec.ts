@@ -13,4 +13,8 @@ test('Headings', () => {
 test('Stylings', () => {
   expect(md.render('**bold**').trim()).toBe('<p><strong>bold</strong></p>');
   expect(md.render('*italic*').trim()).toBe('<p><em>italic</em></p>');
+  expect(md.render('~~strikethrough~~').trim()).toBe(
+    '<p><s>strikethrough</s></p>',
+  );
+  expect(md.render('++underline++').trim()).toBe('<p><ins>underline</ins></p>');
 });
