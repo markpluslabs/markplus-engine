@@ -55,3 +55,9 @@ test('HTML', () => {
     '<p><strong>hello</strong></p>',
   );
 });
+
+test('sub and sup', () => {
+  expect(md.render('H~2~O').trim()).toBe('<p>H<sub>2</sub>O</p>');
+  expect(md.render('2^10^').trim()).toBe('<p>2<sup>10</sup></p>');
+  expect(md.render('29^th^').trim()).toBe('<p>29<sup>th</sup></p>');
+});
