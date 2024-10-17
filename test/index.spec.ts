@@ -117,3 +117,24 @@ belong to the previous footnote. <a href="#fnref2" class="footnote-backref">\u21
 </ol>
 </section>`);
 });
+
+test('definition list', () => {
+  expect(
+    md
+      .render(
+        `Term 1
+~ Definition 1
+
+Term 2
+~ Definition 2a
+~ Definition 2b`,
+      )
+      .trim(),
+  ).toBe(`<dl>
+<dt>Term 1</dt>
+<dd>Definition 1</dd>
+<dt>Term 2</dt>
+<dd>Definition 2a</dd>
+<dd>Definition 2b</dd>
+</dl>`);
+});
