@@ -12,6 +12,7 @@ import subExt from 'markdown-it-sub';
 import supExt from 'markdown-it-sup';
 
 import sourceMapExt from './source-map';
+import tocExt from './toc';
 
 let md = markdownit({
   html: true,
@@ -39,5 +40,6 @@ md = md.use(anchorExt, {
   slugify: (s) => slugify(s),
 });
 md = md.use(sourceMapExt);
+md = md.use(tocExt);
 
 export default md;

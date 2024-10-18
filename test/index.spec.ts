@@ -2,7 +2,7 @@ import { expect, test } from 'vitest';
 
 import md from '../src';
 
-test('Headings', () => {
+test('headings', () => {
   for (let i = 1; i <= 6; i++) {
     expect(md.render(`${'#'.repeat(i)} heading ${i}`).trim()).toBe(
       `<h${i} id="heading-${i}" data-sl="1"><a class="anchor" href="#heading-${i}"><span class="octicon octicon-link"></span></a>heading ${i}</h${i}>`,
@@ -10,7 +10,7 @@ test('Headings', () => {
   }
 });
 
-test('Stylings', () => {
+test('stylings', () => {
   expect(md.render('**bold**').trim()).toBe(
     '<p data-sl="1"><strong>bold</strong></p>',
   );
@@ -227,5 +227,13 @@ test('slugify', () => {
   );
   expect(md.render('# heading :fa-smile:').trim()).toBe(
     '<h1 id="heading-fa-smile" data-sl="1"><a class="anchor" href="#heading-fa-smile"><span class="octicon octicon-link"></span></a>heading :fa-smile:</h1>',
+  );
+});
+
+test('toc', () => {
+  expect(md.render('# heading 1\n## heading :heart:\n\n[toc]').trim()).toBe(
+    `<h1 id="heading-1" data-sl="1"><a class="anchor" href="#heading-1"><span class="octicon octicon-link"></span></a>heading 1</h1>
+<h2 id="heading" data-sl="2"><a class="anchor" href="#heading"><span class="octicon octicon-link"></span></a>heading ❤️</h2>
+<ul data-sl="4"><li>heading </li></ul>`,
   );
 });
