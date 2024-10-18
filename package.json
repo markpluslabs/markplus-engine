@@ -1,10 +1,14 @@
 {
-  "name": "untitled-app",
+  "name": "markdown-extensible",
   "version": "0.1.0",
-  "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
+  "type": "module",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
-    "lint": "tsc --jsx react --skipLibCheck --noEmit --target ESNext --moduleResolution NodeNext --module NodeNext ./src/*.ts && eslint . --fix && prettier --write . && sort-package-json",
+    "lint": "tsc --skipLibCheck --noEmit --target ESNext --moduleResolution NodeNext --module NodeNext ./src/*.ts && eslint . --fix && prettier --write . && sort-package-json",
+    "prepublishOnly": "yarn lint && yarn test && tsc src/index.ts --skipLibCheck --declaration --outDir . --target ESNext --moduleResolution NodeNext --module NodeNext",
+    "postpublish": "rm index.*",
     "test": "vitest run"
   },
   "dependencies": {
