@@ -1,3 +1,4 @@
+import slugify from '@sindresorhus/slugify';
 import markdownit from 'markdown-it';
 import { RuleBlock } from 'markdown-it/lib/parser_block.mjs';
 
@@ -44,15 +45,19 @@ const tocExt = (md: markdownit) => {
       ) {
         inHeading = false;
       } else if (inHeading && token.type === 'inline') {
-        headings.push(
-          token
-            .children!.filter((t) => ['text', 'code_inline'].includes(t.type))
-            .map((t) => t.content)
-            .join(''),
-        );
+        const title = token
+          .children!.filter((t) => ['text', 'code_inline'].includes(t.type))
+          .map((t) => t.content)
+          .join('')
+          .trim();
+        if (title.length > 0) {
+          headings.push(title);
+        }
       }
     }
-    return headings.map((h) => `<li>${h}</li>`).join('');
+    return headings
+      .map((h) => `<li><a href="#${slugify(h)}">${h}</a></li>`)
+      .join('');
   };
   md.renderer.rules.toc_close = () => '</ul>';
   md.block.ruler.before('heading', 'toc', toc);
