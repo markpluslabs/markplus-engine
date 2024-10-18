@@ -138,3 +138,8 @@ Term 2
 <dd>Definition 2b</dd>
 </dl>`);
 });
+
+test('emoji', () => {
+  expect(md.render(':smile:').trim()).toBe('<p>😄</p>');
+  expect(md.render(':whale:').trim()).toBe('<p>🐳</p>');
+});

@@ -1,5 +1,6 @@
 import markdownit from 'markdown-it';
 import deflistExt from 'markdown-it-deflist';
+import { full as emojiExt } from 'markdown-it-emoji';
 import footnotExt from 'markdown-it-footnote';
 import insExt from 'markdown-it-ins';
 import markExt from 'markdown-it-mark';
@@ -15,5 +16,6 @@ md = md.use(subExt);
 md = md.use(supExt);
 md = md.use(footnotExt);
 md = md.use(deflistExt);
+md = md.use(emojiExt);
 
 export default md;
