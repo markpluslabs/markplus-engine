@@ -8,7 +8,6 @@ const tocExt = (md: markdownit) => {
     const start = state.bMarks[startLine] + state.tShift[startLine];
     const max = state.eMarks[startLine];
     const line = state.src.substring(start, max);
-    console.log('line:', line);
     if (line !== '[toc]') {
       return false;
     }
