@@ -143,3 +143,17 @@ test('emoji', () => {
   expect(md.render(':smile:').trim()).toBe('<p>😄</p>');
   expect(md.render(':whale:').trim()).toBe('<p>🐳</p>');
 });
+
+test('containers', () => {
+  expect(
+    md
+      .render(
+        `::: warning
+*here be dragons*
+:::`,
+      )
+      .trim(),
+  ).toBe(`<div class="warning">
+<p><em>here be dragons</em></p>
+</div>`);
+});
