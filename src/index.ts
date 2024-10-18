@@ -1,4 +1,5 @@
 import markdownit from 'markdown-it';
+import anchorExt from 'markdown-it-anchor';
 import cjkBreaksExt from 'markdown-it-cjk-breaks';
 import containerExt from 'markdown-it-container';
 import deflistExt from 'markdown-it-deflist';
@@ -24,5 +25,14 @@ md = md.use(containerExt, 'info');
 md = md.use(containerExt, 'warning');
 md = md.use(containerExt, 'error');
 md = md.use(cjkBreaksExt);
+md = md.use(anchorExt, {
+  tabIndex: false,
+  permalink: anchorExt.permalink.linkInsideHeader({
+    symbol: '<span class="octicon octicon-link"></span>',
+    placement: 'before',
+    space: false,
+    class: 'anchor',
+  }),
+});
 
 export default md;

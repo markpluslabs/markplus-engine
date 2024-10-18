@@ -5,7 +5,7 @@ import md from '../src/index';
 test('Headings', () => {
   for (let i = 1; i <= 6; i++) {
     expect(md.render(`${'#'.repeat(i)} heading ${i}`).trim()).toBe(
-      `<h${i}>heading ${i}</h${i}>`,
+      `<h${i} id="heading-${i}"><a class="anchor" href="#heading-${i}"><span class="octicon octicon-link"></span></a>heading ${i}</h${i}>`,
     );
   }
 });
