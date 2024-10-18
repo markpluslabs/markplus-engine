@@ -148,6 +148,30 @@ test('containers', () => {
   expect(
     md
       .render(
+        `::: success
+You did it!
+:::`,
+      )
+      .trim(),
+  ).toBe(`<div class="success">
+<p>You did it!</p>
+</div>`);
+
+  expect(
+    md
+      .render(
+        `::: info
+info
+:::`,
+      )
+      .trim(),
+  ).toBe(`<div class="info">
+<p>info</p>
+</div>`);
+
+  expect(
+    md
+      .render(
         `::: warning
 *here be dragons*
 :::`,
@@ -156,4 +180,33 @@ test('containers', () => {
   ).toBe(`<div class="warning">
 <p><em>here be dragons</em></p>
 </div>`);
+
+  expect(
+    md
+      .render(
+        `::: error
+error
+:::`,
+      )
+      .trim(),
+  ).toBe(`<div class="error">
+<p>error</p>
+</div>`);
+
+  expect(
+    md
+      .render(
+        `::: unknown
+unknown
+:::`,
+      )
+      .trim(),
+  ).toBe(`<p>::: unknown
+unknown
+:::</p>`);
+});
+
+test('Chinese breaks', () => {
+  expect(md.render('春风\n得意').trim()).toBe('<p>春风得意</p>');
+  expect(md.render('Hello\nworld!').trim()).toBe('<p>Hello\nworld!</p>');
 });
