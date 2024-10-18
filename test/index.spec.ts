@@ -5,19 +5,27 @@ import md from '../src/index';
 test('Headings', () => {
   for (let i = 1; i <= 6; i++) {
     expect(md.render(`${'#'.repeat(i)} heading ${i}`).trim()).toBe(
-      `<h${i} id="heading-${i}"><a class="anchor" href="#heading-${i}"><span class="octicon octicon-link"></span></a>heading ${i}</h${i}>`,
+      `<h${i} id="heading-${i}" data-sl="1"><a class="anchor" href="#heading-${i}"><span class="octicon octicon-link"></span></a>heading ${i}</h${i}>`,
     );
   }
 });
 
 test('Stylings', () => {
-  expect(md.render('**bold**').trim()).toBe('<p><strong>bold</strong></p>');
-  expect(md.render('*italic*').trim()).toBe('<p><em>italic</em></p>');
-  expect(md.render('~~strikethrough~~').trim()).toBe(
-    '<p><s>strikethrough</s></p>',
+  expect(md.render('**bold**').trim()).toBe(
+    '<p data-sl="1"><strong>bold</strong></p>',
   );
-  expect(md.render('++underline++').trim()).toBe('<p><ins>underline</ins></p>');
-  expect(md.render('==mark==').trim()).toBe('<p><mark>mark</mark></p>');
+  expect(md.render('*italic*').trim()).toBe(
+    '<p data-sl="1"><em>italic</em></p>',
+  );
+  expect(md.render('~~strikethrough~~').trim()).toBe(
+    '<p data-sl="1"><s>strikethrough</s></p>',
+  );
+  expect(md.render('++underline++').trim()).toBe(
+    '<p data-sl="1"><ins>underline</ins></p>',
+  );
+  expect(md.render('==mark==').trim()).toBe(
+    '<p data-sl="1"><mark>mark</mark></p>',
+  );
 });
 
 test('tables', () => {
@@ -30,7 +38,7 @@ test('tables', () => {
 | command 2 | desc 2 |`,
       )
       .trim(),
-  ).toBe(`<table>
+  ).toBe(`<table data-sl="1">
 <thead>
 <tr>
 <th>Command</th>
@@ -52,14 +60,14 @@ test('tables', () => {
 
 test('HTML', () => {
   expect(md.render('<strong>hello</strong>').trim()).toBe(
-    '<p><strong>hello</strong></p>',
+    '<p data-sl="1"><strong>hello</strong></p>',
   );
 });
 
 test('sub and sup', () => {
-  expect(md.render('H~2~O').trim()).toBe('<p>H<sub>2</sub>O</p>');
-  expect(md.render('2^10^').trim()).toBe('<p>2<sup>10</sup></p>');
-  expect(md.render('29^th^').trim()).toBe('<p>29<sup>th</sup></p>');
+  expect(md.render('H~2~O').trim()).toBe('<p data-sl="1">H<sub>2</sub>O</p>');
+  expect(md.render('2^10^').trim()).toBe('<p data-sl="1">2<sup>10</sup></p>');
+  expect(md.render('29^th^').trim()).toBe('<p data-sl="1">29<sup>th</sup></p>');
 });
 
 test('footnote inline', () => {
@@ -72,7 +80,7 @@ note.]`,
       )
       .trim(),
   )
-    .toBe(`<p>Here is an inline note.<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
+    .toBe(`<p data-sl="1">Here is an inline note.<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
 <hr class="footnotes-sep">
 <section class="footnotes">
 <ol class="footnotes-list">
@@ -102,8 +110,8 @@ isn't indented.`,
       )
       .trim(),
   )
-    .toBe(`<p>Here is a footnote reference,<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup> and another.<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></p>
-<p>This paragraph won't be part of the note, because it
+    .toBe(`<p data-sl="1">Here is a footnote reference,<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup> and another.<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></p>
+<p data-sl="10">This paragraph won't be part of the note, because it
 isn't indented.</p>
 <hr class="footnotes-sep">
 <section class="footnotes">
@@ -130,7 +138,7 @@ Term 2
 ~ Definition 2b`,
       )
       .trim(),
-  ).toBe(`<dl>
+  ).toBe(`<dl data-sl="1">
 <dt>Term 1</dt>
 <dd>Definition 1</dd>
 <dt>Term 2</dt>
@@ -140,8 +148,8 @@ Term 2
 });
 
 test('emoji', () => {
-  expect(md.render(':smile:').trim()).toBe('<p>😄</p>');
-  expect(md.render(':whale:').trim()).toBe('<p>🐳</p>');
+  expect(md.render(':smile:').trim()).toBe('<p data-sl="1">😄</p>');
+  expect(md.render(':whale:').trim()).toBe('<p data-sl="1">🐳</p>');
 });
 
 test('containers', () => {
@@ -153,7 +161,7 @@ You did it!
 :::`,
       )
       .trim(),
-  ).toBe(`<div class="success">
+  ).toBe(`<div class="success" data-sl="1">
 <p>You did it!</p>
 </div>`);
 
@@ -165,7 +173,7 @@ info
 :::`,
       )
       .trim(),
-  ).toBe(`<div class="info">
+  ).toBe(`<div class="info" data-sl="1">
 <p>info</p>
 </div>`);
 
@@ -177,7 +185,7 @@ info
 :::`,
       )
       .trim(),
-  ).toBe(`<div class="warning">
+  ).toBe(`<div class="warning" data-sl="1">
 <p><em>here be dragons</em></p>
 </div>`);
 
@@ -189,7 +197,7 @@ error
 :::`,
       )
       .trim(),
-  ).toBe(`<div class="error">
+  ).toBe(`<div class="error" data-sl="1">
 <p>error</p>
 </div>`);
 
@@ -201,12 +209,14 @@ unknown
 :::`,
       )
       .trim(),
-  ).toBe(`<p>::: unknown
+  ).toBe(`<p data-sl="1">::: unknown
 unknown
 :::</p>`);
 });
 
 test('Chinese breaks', () => {
-  expect(md.render('春风\n得意').trim()).toBe('<p>春风得意</p>');
-  expect(md.render('Hello\nworld!').trim()).toBe('<p>Hello\nworld!</p>');
+  expect(md.render('春风\n得意').trim()).toBe('<p data-sl="1">春风得意</p>');
+  expect(md.render('Hello\nworld!').trim()).toBe(
+    '<p data-sl="1">Hello\nworld!</p>',
+  );
 });

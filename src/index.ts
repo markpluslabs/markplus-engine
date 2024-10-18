@@ -10,6 +10,8 @@ import markExt from 'markdown-it-mark';
 import subExt from 'markdown-it-sub';
 import supExt from 'markdown-it-sup';
 
+import sourceMapExt from './source-map';
+
 let md = markdownit({
   html: true,
 });
@@ -34,5 +36,6 @@ md = md.use(anchorExt, {
     class: 'anchor',
   }),
 });
+md = md.use(sourceMapExt);
 
 export default md;
