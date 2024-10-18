@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest';
 
-import md from '../src/index';
+import md from '../src';
 
 test('Headings', () => {
   for (let i = 1; i <= 6; i++) {
