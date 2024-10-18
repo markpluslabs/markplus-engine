@@ -1,3 +1,4 @@
+import slugify from '@sindresorhus/slugify';
 import markdownit from 'markdown-it';
 import anchorExt from 'markdown-it-anchor';
 import cjkBreaksExt from 'markdown-it-cjk-breaks';
@@ -35,6 +36,7 @@ md = md.use(anchorExt, {
     space: false,
     class: 'anchor',
   }),
+  slugify: (s) => slugify(s),
 });
 md = md.use(sourceMapExt);
 

@@ -220,3 +220,12 @@ test('Chinese breaks', () => {
     '<p data-sl="1">Hello\nworld!</p>',
   );
 });
+
+test('slugify', () => {
+  expect(md.render('# heading:smile:').trim()).toBe(
+    '<h1 id="heading" data-sl="1"><a class="anchor" href="#heading"><span class="octicon octicon-link"></span></a>heading😄</h1>',
+  );
+  expect(md.render('# heading :fa-smile:').trim()).toBe(
+    '<h1 id="heading-fa-smile" data-sl="1"><a class="anchor" href="#heading-fa-smile"><span class="octicon octicon-link"></span></a>heading :fa-smile:</h1>',
+  );
+});
