@@ -231,9 +231,14 @@ test('slugify', () => {
 });
 
 test('toc', () => {
-  expect(md.render('# heading 1\n## heading :heart:\n\n[toc]').trim()).toBe(
+  expect(
+    md
+      .render('# heading 1\n## heading 2:heart:\n\n[toc]\n\n### heading 3')
+      .trim(),
+  ).toBe(
     `<h1 id="heading-1" data-sl="1"><a class="anchor" href="#heading-1"><span class="octicon octicon-link"></span></a>heading 1</h1>
-<h2 id="heading" data-sl="2"><a class="anchor" href="#heading"><span class="octicon octicon-link"></span></a>heading ❤️</h2>
-<ul data-sl="4"><li><a href="#heading">heading</a></li></ul>`,
+<h2 id="heading-2" data-sl="2"><a class="anchor" href="#heading-2"><span class="octicon octicon-link"></span></a>heading 2❤️</h2>
+<ul data-sl="4"><li><a href="#heading-2">heading 2</a></li><li><ul><li><a href="#heading-3">heading 3</a></li></ul></li></ul>
+<h3 id="heading-3" data-sl="6"><a class="anchor" href="#heading-3"><span class="octicon octicon-link"></span></a>heading 3</h3>`,
   );
 });

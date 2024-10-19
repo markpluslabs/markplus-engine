@@ -33,32 +33,44 @@ const tocExt = (md: markdownit) => {
   md.renderer.rules.toc_open = (tokens, index) =>
     `<ul data-sl="${tokens[index].map![0] + 1}">`;
   md.renderer.rules.toc_body = (tokens) => {
-    const headings: string[] = [];
-    let inHeading = false;
+    let r = '';
+    let prevTag: '' | 'h2' | 'h3' = '';
+    let level = 0;
     for (const token of tokens) {
-      if (token.type === 'heading_open' && token.tag.toLowerCase() === 'h2') {
-        inHeading = true;
-      } else if (
-        token.type === 'heading_close' &&
-        token.tag.toLowerCase() === 'h2'
-      ) {
-        inHeading = false;
-      } else if (inHeading && token.type === 'inline') {
+      if (token.type.startsWith('heading_')) {
+        const tag = token.tag.toLocaleLowerCase();
+        if (!(tag === 'h2' || tag === 'h3')) {
+          continue;
+        }
+        if (token.type === 'heading_open') {
+          if (tag === 'h3' && prevTag === 'h2') {
+            r += '<li><ul>';
+          }
+          r += '<li>';
+          level += 1;
+        } else if (token.type === 'heading_close') {
+          if (tag === 'h2' && prevTag === 'h3') {
+            r += '</ul></li>';
+          }
+          r += '</li>';
+          level -= 1;
+          prevTag = tag;
+        }
+      } else if (level > 0 && token.type === 'inline') {
         const title = token
           .children!.filter((t) => ['text', 'code_inline'].includes(t.type))
           .map((t) => t.content)
           .join('')
           .trim();
-        if (title.length > 0) {
-          headings.push(title);
-        }
+        r += `<a href="#${slugify(title)}">${title}</a>`;
       }
     }
-    return headings
-      .map((h) => `<li><a href="#${slugify(h)}">${h}</a></li>`)
-      .join('');
+    if (prevTag === 'h3') {
+      r += '</ul></li>';
+    }
+    return r;
   };
-  md.renderer.rules.toc_close = () => '</ul>';
+  md.renderer.rules.toc_close = () => '</ul>\n';
   md.block.ruler.before('heading', 'toc', toc);
 };
 
