@@ -1,10 +1,15 @@
-import slugify from '@sindresorhus/slugify';
 import markdownit from 'markdown-it';
-import { Token } from 'markdown-it/index.js';
 import { RuleBlock } from 'markdown-it/lib/parser_block.mjs';
+import Token from 'markdown-it/lib/token.mjs';
 
-// Only generate toc for h2 & h3 in the document
-const tocExt = (md: markdownit) => {
+interface TocItem {
+  title: string;
+  href: string;
+  children: TocItem[];
+  level: number;
+}
+
+const tocExt = (md: markdownit, options: { headings: number[] }) => {
   const toc: RuleBlock = (state, startLine, endLine, silent) => {
     const start = state.bMarks[startLine] + state.tShift[startLine];
     const max = state.eMarks[startLine];
@@ -17,7 +22,7 @@ const tocExt = (md: markdownit) => {
     }
     state.line = startLine + 1;
 
-    let token = state.push('toc_open', 'toc', 1);
+    let token = state.push('toc_open', 'ul', 1);
     token.markup = '[toc]';
     token.map = [startLine, state.line];
 
@@ -26,24 +31,11 @@ const tocExt = (md: markdownit) => {
     token.map = [startLine, state.line];
     token.children = [];
 
-    token = state.push('toc_close', 'toc', -1);
+    token = state.push('toc_close', 'ul', -1);
     token.markup = '';
 
     return true;
   };
-
-  let sourceLine = 0;
-  md.renderer.rules.toc_open = (tokens, index) => {
-    sourceLine = tokens[index].map![0] + 1;
-    return '';
-  };
-
-  interface TocItem {
-    title: string;
-    href: string;
-    children: TocItem[];
-    level: number;
-  }
 
   function buildTocTree(tokens: Token[]): TocItem[] {
     const toc: TocItem[] = [];
@@ -53,59 +45,55 @@ const tocExt = (md: markdownit) => {
       const token = tokens[i];
       if (token.type === 'heading_open') {
         const level = parseInt(token.tag.substring(1));
-        if (level < 2 || level > 3) continue;
-
-        const titleToken = tokens[i + 1];
-        const title = titleToken
+        if (!options.headings.includes(level)) {
+          continue;
+        }
+        const id = token.attrs!.find((attr) => attr[0] === 'id')![1];
+        const title = tokens[i + 1]
           .children!.filter((t) => ['text', 'code_inline'].includes(t.type))
           .map((t) => t.content)
           .join('')
           .trim();
-
         const item: TocItem = {
           title,
-          href: `#${slugify(title)}`,
+          href: `#${id}`,
           children: [],
           level,
         };
-
         while (stack.length && level <= stack[stack.length - 1].level) {
           stack.pop();
         }
-
         if (stack.length) {
           stack[stack.length - 1].children.push(item);
         } else {
           toc.push(item);
         }
-
         stack.push(item);
       }
     }
-
     return toc;
   }
 
-  function renderToc(items: TocItem[], firstLevel = false): string {
-    let r = firstLevel ? `<ul data-sl="${sourceLine}">` : '<ul>';
+  function renderToc(items: TocItem[]): string {
+    let r = '\n<ul>\n';
     for (const item of items) {
       r += `<li><a href="${item.href}">${item.title}</a>`;
       if (item.children.length > 0) {
         r += renderToc(item.children);
       }
-      r += '</li>';
+      r += '</li>\n';
     }
-    r += '</ul>';
+    r += '</ul>\n';
     return r;
   }
 
   md.renderer.rules.toc_body = (tokens) => {
     const tocTree = buildTocTree(tokens);
-    return renderToc(tocTree, true);
+    const r = renderToc(tocTree);
+    return r.substring(6, r.length - 6); // remove the outer <ul></ul>
   };
 
-  md.renderer.rules.toc_close = () => '\n';
-  md.block.ruler.before('heading', 'toc', toc);
+  md.block.ruler.after('heading', 'toc', toc);
 };
 
 export default tocExt;

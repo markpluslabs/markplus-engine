@@ -240,8 +240,27 @@ test('toc', () => {
   ).toBe(
     `<h1 id="heading-1" data-sl="1"><a class="anchor" href="#heading-1"><span class="octicon octicon-link"></span></a>heading 1</h1>
 <h2 id="heading-2" data-sl="2"><a class="anchor" href="#heading-2"><span class="octicon octicon-link"></span></a>heading 2❤️</h2>
-<ul data-sl="4"><li><a href="#heading-2">heading 2</a><ul><li><a href="#heading-3">heading 3</a></li><li><a href="#heading-3">heading 3</a></li></ul></li></ul>
+<ul data-sl="4">
+<li><a href="#heading-2">heading 2</a>
+<ul>
+<li><a href="#heading-3">heading 3</a></li>
+<li><a href="#heading-3-1">heading 3</a></li>
+</ul>
+</li>
+</ul>
 <h3 id="heading-3" data-sl="6"><a class="anchor" href="#heading-3"><span class="octicon octicon-link"></span></a>heading 3</h3>
 <h3 id="heading-3-1" data-sl="8"><a class="anchor" href="#heading-3-1"><span class="octicon octicon-link"></span></a>heading 3</h3>`,
   );
+});
+
+test('lists', () => {
+  expect(md.render('- heading 2\n  - heading 3\n  - heading 3').trim())
+    .toBe(`<ul data-sl="1">
+<li>heading 2
+<ul>
+<li>heading 3</li>
+<li>heading 3</li>
+</ul>
+</li>
+</ul>`);
 });

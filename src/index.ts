@@ -40,6 +40,6 @@ md = md.use(anchorExt, {
   slugify: (s) => slugify(s),
 });
 md = md.use(sourceMapExt);
-md = md.use(tocExt);
+md = md.use(tocExt, { headings: [2, 3] }); // h2 & h3
 
 export default md;
