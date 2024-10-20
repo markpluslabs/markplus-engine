@@ -8,7 +8,7 @@ const faExt = (md: markdownit) => {
   const options = {
     name: 'font-awesome',
     regex: faRegex,
-    replace: (match: string) => `<i class="${match}"></i>`,
+    replace: (match: string) => `<i class="fa ${match}"></i>`,
   };
   md.renderer.rules[options.name] = (tokens, idx) => {
     return rendererRule(tokens, idx, options);
