@@ -276,3 +276,18 @@ test('font-awesome', () => {
     '<p data-sl="1"><i class="fa fa-smile"></i><i class="fa fa-flag"></i></p>',
   );
 });
+
+test('katex', () => {
+  expect(
+    md
+      .render('`$H_2O$`')
+      .trim()
+      .startsWith('<p data-sl="1"><span class="katex">'),
+  ).toBeTruthy();
+  expect(
+    md
+      .render('```math\nH_2O\n```')
+      .trim()
+      .startsWith('<div><span class="katex-display"><span class="katex">'),
+  ).toBeTruthy();
+});

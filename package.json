@@ -1,6 +1,6 @@
 {
   "name": "markdown-extensible",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "license": "MIT",
   "type": "module",
   "main": "./src/index.ts",
@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@sindresorhus/slugify": "^2.2.1",
+    "katex": "^0.16.11",
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^9.2.0",
     "markdown-it-cjk-breaks": "^2.0.0",
@@ -26,6 +27,7 @@
     "markdown-it-sup": "^2.0.0"
   },
   "devDependencies": {
+    "@types/katex": "^0.16.7",
     "@types/markdown-it": "^14.1.2",
     "@types/node": "^22.7.7",
     "eslint-config-tyler": "^0.1.7",

@@ -12,6 +12,7 @@ import subExt from 'markdown-it-sub';
 import supExt from 'markdown-it-sup';
 
 import faExt from './font-awesome';
+import katexPlugin from './katex';
 import sourceMapExt from './source-map';
 import tocExt from './toc';
 
@@ -44,5 +45,6 @@ md = md.use(sourceMapExt);
 md = md.use(tocExt, { headings: [2, 3] }); // h2 & h3
 md = md.use(faExt);
 md = md.use(emojiExt);
+md = md.use(katexPlugin);
 
 export default md;
