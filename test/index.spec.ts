@@ -226,7 +226,7 @@ test('slugify', () => {
     '<h1 id="heading" data-sl="1"><a class="anchor" href="#heading"><span class="octicon octicon-link"></span></a>heading😄</h1>',
   );
   expect(md.render('# heading :fa-smile:').trim()).toBe(
-    '<h1 id="heading-fa-smile" data-sl="1"><a class="anchor" href="#heading-fa-smile"><span class="octicon octicon-link"></span></a>heading :fa-smile:</h1>',
+    '<h1 id="heading-fa-smile" data-sl="1"><a class="anchor" href="#heading-fa-smile"><span class="octicon octicon-link"></span></a>heading <i class="fa-smile"></i></h1>',
   );
 });
 
@@ -263,4 +263,16 @@ test('lists', () => {
 </ul>
 </li>
 </ul>`);
+});
+
+test('font-awesome', () => {
+  expect(md.render(':fa-smile:').trim()).toBe(
+    '<p data-sl="1"><i class="fa-smile"></i></p>',
+  );
+  expect(md.render(':fa-smile: :fa-flag:').trim()).toBe(
+    '<p data-sl="1"><i class="fa-smile"></i> <i class="fa-flag"></i></p>',
+  );
+  expect(md.render(':fa-smile::fa-flag:').trim()).toBe(
+    '<p data-sl="1"><i class="fa-smile"></i><i class="fa-flag"></i></p>',
+  );
 });

@@ -11,19 +11,20 @@ import markExt from 'markdown-it-mark';
 import subExt from 'markdown-it-sub';
 import supExt from 'markdown-it-sup';
 
+import faExt from './font-awesome';
 import sourceMapExt from './source-map';
 import tocExt from './toc';
 
 let md = markdownit({
   html: true,
 });
+
 md = md.use(insExt);
 md = md.use(markExt);
 md = md.use(subExt);
 md = md.use(supExt);
 md = md.use(footnoteExt);
 md = md.use(deflistExt);
-md = md.use(emojiExt);
 md = md.use(containerExt, 'success');
 md = md.use(containerExt, 'info');
 md = md.use(containerExt, 'warning');
@@ -41,5 +42,7 @@ md = md.use(anchorExt, {
 });
 md = md.use(sourceMapExt);
 md = md.use(tocExt, { headings: [2, 3] }); // h2 & h3
+md = md.use(faExt);
+md = md.use(emojiExt);
 
 export default md;
