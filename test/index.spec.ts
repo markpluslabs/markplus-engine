@@ -291,3 +291,9 @@ test('katex', () => {
       .startsWith('<div><span class="katex-display"><span class="katex">'),
   ).toBeTruthy();
 });
+
+test('syntax highlight', () => {
+  expect(md.render('```typescript\nconst a = 1;\n```').trim()).toBe(
+    '<pre data-sl="1"><code class="hljs"><span class="hljs-keyword">const</span> a = <span class="hljs-number">1</span>;</code></pre>',
+  );
+});

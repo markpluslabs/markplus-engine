@@ -12,6 +12,7 @@ import subExt from 'markdown-it-sub';
 import supExt from 'markdown-it-sup';
 
 import faExt from './font-awesome';
+import highlightExt from './highlight';
 import katexPlugin from './katex';
 import sourceMapExt from './source-map';
 import tocExt from './toc';
@@ -20,6 +21,9 @@ let md = markdownit({
   html: true,
 });
 
+/*
+关于顺序: 貌似下面的会优先执行
+ */
 md = md.use(insExt);
 md = md.use(markExt);
 md = md.use(subExt);
@@ -45,6 +49,7 @@ md = md.use(sourceMapExt);
 md = md.use(tocExt, { headings: [2, 3] }); // h2 & h3
 md = md.use(faExt);
 md = md.use(emojiExt);
+md = md.use(highlightExt);
 md = md.use(katexPlugin);
 
 export default md;
