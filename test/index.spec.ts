@@ -300,7 +300,7 @@ test('syntax highlight', () => {
 
 test('task list', () => {
   expect(md.render('- [x] task 1\n- [ ] task 2').trim()).toBe(`<ul data-sl="1">
-<li><input type="checkbox" disabled checked> task 1</li>
-<li><input type="checkbox" disabled> task 2</li>
+<li class="task-list-item"><input type="checkbox" disabled checked> task 1</li>
+<li class="task-list-item"><input type="checkbox" disabled> task 2</li>
 </ul>`);
 });
