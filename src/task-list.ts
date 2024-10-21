@@ -21,9 +21,9 @@ const taskListExt = (md: markdownit) => {
     let r = renderInline(tokens, options, env);
     if (taskListItem) {
       if (r.startsWith('[ ] ')) {
-        r = `<input type="checkbox" disabled> ${r.slice(4)}`;
+        r = `<input class="task-list-item-checkbox" type="checkbox" disabled> ${r.slice(4)}`;
       } else if (r.startsWith('[x] ')) {
-        r = `<input type="checkbox" disabled checked> ${r.slice(4)}`;
+        r = `<input class="task-list-item-checkbox" type="checkbox" disabled checked> ${r.slice(4)}`;
       }
       taskListItem = false;
     }
