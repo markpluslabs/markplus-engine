@@ -15,6 +15,7 @@ import faExt from './font-awesome';
 import highlightExt from './highlight';
 import katexPlugin from './katex';
 import sourceMapExt from './source-map';
+import taskListExt from './task-list';
 import tocExt from './toc';
 
 let md = markdownit({
@@ -24,6 +25,7 @@ let md = markdownit({
 /*
 关于顺序: 貌似下面的会优先执行
  */
+md = md.use(taskListExt);
 md = md.use(insExt);
 md = md.use(markExt);
 md = md.use(subExt);
