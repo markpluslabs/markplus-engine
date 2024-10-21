@@ -304,3 +304,9 @@ test('task list', () => {
 <li class="task-list-item"><input class="task-list-item-checkbox" type="checkbox" disabled> task 2</li>
 </ul>`);
 });
+
+test('chart.js', () => {
+  expect(md.render('```chartjs\n{"hello":1}\n```')).toBe(
+    '<canvas class="chartjs">{"hello":1}</canvas>',
+  );
+});

@@ -11,6 +11,7 @@ import markExt from 'markdown-it-mark';
 import subExt from 'markdown-it-sub';
 import supExt from 'markdown-it-sup';
 
+import chartJsExt from './chart-js';
 import faExt from './font-awesome';
 import highlightExt from './highlight';
 import katexPlugin from './katex';
@@ -53,5 +54,6 @@ md = md.use(faExt);
 md = md.use(emojiExt);
 md = md.use(highlightExt);
 md = md.use(katexPlugin);
+md = md.use(chartJsExt);
 
 export default md;
