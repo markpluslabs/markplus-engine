@@ -35,7 +35,7 @@ md = md.use(deflistExt);
 md = md.use(containerExt, 'success');
 md = md.use(containerExt, 'info');
 md = md.use(containerExt, 'warning');
-md = md.use(containerExt, 'error');
+md = md.use(containerExt, 'danger');
 md = md.use(cjkBreaksExt);
 md = md.use(anchorExt, {
   tabIndex: false,

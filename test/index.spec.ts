@@ -192,13 +192,13 @@ info
   expect(
     md
       .render(
-        `::: error
-error
+        `::: danger
+danger
 :::`,
       )
       .trim(),
-  ).toBe(`<div class="error" data-sl="1">
-<p>error</p>
+  ).toBe(`<div class="danger" data-sl="1">
+<p>danger</p>
 </div>`);
 
   expect(
