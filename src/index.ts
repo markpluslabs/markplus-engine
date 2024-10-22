@@ -15,6 +15,7 @@ import chartJsExt from './chart-js';
 import faExt from './font-awesome';
 import highlightExt from './highlight';
 import katexPlugin from './katex';
+import mermaidExt from './mermaid';
 import sourceMapExt from './source-map';
 import taskListExt from './task-list';
 import tocExt from './toc';
@@ -55,5 +56,6 @@ md = md.use(emojiExt);
 md = md.use(highlightExt);
 md = md.use(katexPlugin);
 md = md.use(chartJsExt);
+md = md.use(mermaidExt);
 
 export default md;

@@ -310,3 +310,13 @@ test('chart.js', () => {
     '<canvas class="chartjs">{"hello":1}</canvas>',
   );
 });
+
+test('mermaid', () => {
+  expect(
+    md.render(
+      '```mermaid\ngraph TD\nA[Client] --> B[Load Balancer]\nB --> C[Server1]\nB --> D[Server2]\n```',
+    ),
+  ).toBe(
+    '<pre class="mermaid">\ngraph TD\nA[Client] --> B[Load Balancer]\nB --> C[Server1]\nB --> D[Server2]\n</pre>',
+  );
+});
