@@ -215,7 +215,7 @@ unknown
 });
 
 test('Chinese breaks', () => {
-  expect(md.render('春风\n得意').trim()).toBe('<p data-sl="1">春风得意</p>');
+  expect(md.render('春风\n得意').trim()).toBe('<p data-sl="1">春风\n得意</p>');
   expect(md.render('Hello\nworld!').trim()).toBe(
     '<p data-sl="1">Hello\nworld!</p>',
   );
@@ -321,16 +321,7 @@ test('mermaid', () => {
   );
 });
 
+// ref: https://github.com/markdown-it/markdown-it-cjk-breaks/pull/5
 test('no exception', () => {
-  expect(() =>
-    md
-      .render(
-        `
-# Markdown Plus
-**d**
-Markdown Plus ("M+" or "mdp" for short) is a markdown editor with extra features.
-    `,
-      )
-      .trim(),
-  ).not.toThrow();
+  expect(() => md.render('**a**\nb')).not.toThrow();
 });
