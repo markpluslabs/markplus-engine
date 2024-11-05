@@ -320,3 +320,17 @@ test('mermaid', () => {
     '<pre class="mermaid">\ngraph TD\nA[Client] --> B[Load Balancer]\nB --> C[Server1]\nB --> D[Server2]\n</pre>',
   );
 });
+
+test('no exception', () => {
+  expect(() =>
+    md
+      .render(
+        `
+# Markdown Plus
+**d**
+Markdown Plus ("M+" or "mdp" for short) is a markdown editor with extra features.
+    `,
+      )
+      .trim(),
+  ).not.toThrow();
+});
