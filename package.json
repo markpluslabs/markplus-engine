@@ -21,9 +21,9 @@
   "types": "./src/index.d.ts",
   "scripts": {
     "lint": "eslint . --fix && prettier --write . && sort-package-json",
-    "prepublishOnly": "yarn lint && yarn test && tsc src/index.js --declaration",
-    "test": "vitest run",
-    "postpublish": "rm src/*.js src/*.d.ts"
+    "prepublishOnly": "yarn lint && yarn test && tsc src/index.ts --skipLibCheck --declaration --esModuleInterop",
+    "postpublish": "rm src/*.js src/*.d.ts",
+    "test": "vitest run"
   },
   "dependencies": {
     "@sindresorhus/slugify": "^2.2.1",
