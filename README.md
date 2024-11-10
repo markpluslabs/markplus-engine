@@ -1,20 +1,25 @@
-# Untitled App
+# MarkPlus Engine
 
-## Reference
+A markdown to html converter with a bunch of extra features.
 
-- https://sindresorhus.com/github-markdown-css/
-- https://www.npmjs.com/package/markdown-it-anchor
+It powers [react-markplus](https://github.com/markpluslabs/react-markplus).
 
-## Principle
+## Install
 
-This library doesn't take care of CSS.
-You will need to manually incude the following css in your own project:
-
-```html
-<link
-  rel="stylesheet"
-  href="../node_modules/@fortawesome/fontawesome-free/css/all.css"
-/>
-
-<link rel="stylesheet" href="../node_modules/katex/dist/katex.css" />
 ```
+yarn add markplus-engine
+```
+
+## Usage
+
+```ts
+import markPlusEngine from 'markplus-engine';
+
+const html = markPlusEngine.render('# Hello world!');
+```
+
+## Notes
+
+This library focus on markdown to html converstion.
+It's supposed to run in both Node.js and browser.
+Thus, it doesn't handle CSS or client side JavaScript.(since Node.js doesn't have CSS or client side JavaScript).
