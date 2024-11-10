@@ -24,4 +24,4 @@ const html = markPlusEngine.render('# Hello world!');
 
 This library focus on markdown to html converstion.
 It's supposed to run in both Node.js and browser.
-Thus, it doesn't handle CSS or client side JavaScript.(since Node.js doesn't have CSS or client side JavaScript).
+Thus, it doesn't handle CSS or client-side JavaScript.(since Node.js doesn't have CSS or client-side JavaScript).
