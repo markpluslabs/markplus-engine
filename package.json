@@ -1,6 +1,20 @@
 {
   "name": "markplus-engine",
   "version": "0.1.0",
+  "keywords": [
+    "markdown",
+    "markplus",
+    "parser",
+    "engine"
+  ],
+  "homepage": "https://github.com/markpluslabs/markplus-engine",
+  "bugs": {
+    "url": "https://github.com/markpluslabs/markplus-engine/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markpluslabs/markplus-engine.git"
+  },
   "license": "MIT",
   "type": "module",
   "main": "./src/index.ts",

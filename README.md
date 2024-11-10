@@ -4,6 +4,8 @@ A markdown to html converter with a bunch of extra features.
 
 It powers [react-markplus](https://github.com/markpluslabs/react-markplus).
 
+<img src="https://markpluslabs.github.io/react-markplus/icon.svg" width="128" height="128" />
+
 ## Install
 
 ```
