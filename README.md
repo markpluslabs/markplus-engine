@@ -17,7 +17,7 @@ yarn add markplus-engine
 ```ts
 import markplusEngine from 'markplus-engine';
 
-const html = markplusEngine.render('# Hello world!');
+const html = await markplusEngine.render('# Hello world!');
 ```
 
 ## Notes
