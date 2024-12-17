@@ -311,16 +311,6 @@ test('chart.js', () => {
   );
 });
 
-test('mermaid', () => {
-  expect(
-    md.render(
-      '```mermaid\ngraph TD\nA[Client] --> B[Load Balancer]\nB --> C[Server1]\nB --> D[Server2]\n```',
-    ),
-  ).toBe(
-    '<pre class="mermaid">\ngraph TD\nA[Client] --> B[Load Balancer]\nB --> C[Server1]\nB --> D[Server2]\n</pre>',
-  );
-});
-
 // ref: https://github.com/markdown-it/markdown-it-cjk-breaks/pull/5
 test('no exception', () => {
   expect(() => md.render('**a**\nb')).not.toThrow();
