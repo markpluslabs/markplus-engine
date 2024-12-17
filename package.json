@@ -39,7 +39,8 @@
     "markdown-it-mark": "^4.0.0",
     "markdown-it-regex": "^0.2.0",
     "markdown-it-sub": "^2.0.0",
-    "markdown-it-sup": "^2.0.0"
+    "markdown-it-sup": "^2.0.0",
+    "markplus-charts": "^0.2.0"
   },
   "devDependencies": {
     "@types/katex": "^0.16.7",

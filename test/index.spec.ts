@@ -2,42 +2,42 @@ import { expect, test } from 'vitest';
 
 import md from '../src';
 
-test('headings', () => {
+test('headings', async () => {
   for (let i = 1; i <= 6; i++) {
-    expect(md.render(`${'#'.repeat(i)} heading ${i}`).trim()).toBe(
+    expect((await md.render(`${'#'.repeat(i)} heading ${i}`)).trim()).toBe(
       `<h${i} id="heading-${i}" data-sl="1"><a class="anchor" href="#heading-${i}"><span class="octicon octicon-link"></span></a>heading ${i}</h${i}>`,
     );
   }
 });
 
-test('stylings', () => {
-  expect(md.render('**bold**').trim()).toBe(
+test('stylings', async () => {
+  expect((await md.render('**bold**')).trim()).toBe(
     '<p data-sl="1"><strong>bold</strong></p>',
   );
-  expect(md.render('*italic*').trim()).toBe(
+  expect((await md.render('*italic*')).trim()).toBe(
     '<p data-sl="1"><em>italic</em></p>',
   );
-  expect(md.render('~~strikethrough~~').trim()).toBe(
+  expect((await md.render('~~strikethrough~~')).trim()).toBe(
     '<p data-sl="1"><s>strikethrough</s></p>',
   );
-  expect(md.render('++underline++').trim()).toBe(
+  expect((await md.render('++underline++')).trim()).toBe(
     '<p data-sl="1"><ins>underline</ins></p>',
   );
-  expect(md.render('==mark==').trim()).toBe(
+  expect((await md.render('==mark==')).trim()).toBe(
     '<p data-sl="1"><mark>mark</mark></p>',
   );
 });
 
-test('tables', () => {
+test('tables', async () => {
   expect(
-    md
-      .render(
+    (
+      await md.render(
         `| Command | Description |
 | --- | --- |
 | command 1 | desc 1 |
 | command 2 | desc 2 |`,
       )
-      .trim(),
+    ).trim(),
   ).toBe(`<table data-sl="1">
 <thead>
 <tr>
@@ -58,27 +58,33 @@ test('tables', () => {
 </table>`);
 });
 
-test('HTML', () => {
-  expect(md.render('<strong>hello</strong>').trim()).toBe(
+test('HTML', async () => {
+  expect((await md.render('<strong>hello</strong>')).trim()).toBe(
     '<p data-sl="1"><strong>hello</strong></p>',
   );
 });
 
-test('sub and sup', () => {
-  expect(md.render('H~2~O').trim()).toBe('<p data-sl="1">H<sub>2</sub>O</p>');
-  expect(md.render('2^10^').trim()).toBe('<p data-sl="1">2<sup>10</sup></p>');
-  expect(md.render('29^th^').trim()).toBe('<p data-sl="1">29<sup>th</sup></p>');
+test('sub and sup', async () => {
+  expect((await md.render('H~2~O')).trim()).toBe(
+    '<p data-sl="1">H<sub>2</sub>O</p>',
+  );
+  expect((await md.render('2^10^')).trim()).toBe(
+    '<p data-sl="1">2<sup>10</sup></p>',
+  );
+  expect((await md.render('29^th^')).trim()).toBe(
+    '<p data-sl="1">29<sup>th</sup></p>',
+  );
 });
 
-test('footnote inline', () => {
+test('footnote inline', async () => {
   expect(
-    md
-      .render(
+    (
+      await md.render(
         `Here is an inline note.^[Inlines notes are easier to write, since
 you don't have to pick an identifier and move down to type the
 note.]`,
       )
-      .trim(),
+    ).trim(),
   )
     .toBe(`<p data-sl="1">Here is an inline note.<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
 <hr class="footnotes-sep">
@@ -92,10 +98,10 @@ note. <a href="#fnref1" class="footnote-backref">\u21a9\uFE0E</a></p>
 </section>`);
 });
 
-test('footnote block', () => {
+test('footnote block', async () => {
   expect(
-    md
-      .render(
+    (
+      await md.render(
         `Here is a footnote reference,[^1] and another.[^longnote]
 
 [^1]: Here is the footnote.
@@ -108,7 +114,7 @@ belong to the previous footnote.
 This paragraph won't be part of the note, because it
 isn't indented.`,
       )
-      .trim(),
+    ).trim(),
   )
     .toBe(`<p data-sl="1">Here is a footnote reference,<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup> and another.<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></p>
 <p data-sl="10">This paragraph won't be part of the note, because it
@@ -126,10 +132,10 @@ belong to the previous footnote. <a href="#fnref2" class="footnote-backref">\u21
 </section>`);
 });
 
-test('definition list', () => {
+test('definition list', async () => {
   expect(
-    md
-      .render(
+    (
+      await md.render(
         `Term 1
 ~ Definition 1
 
@@ -137,7 +143,7 @@ Term 2
 ~ Definition 2a
 ~ Definition 2b`,
       )
-      .trim(),
+    ).trim(),
   ).toBe(`<dl data-sl="1">
 <dt>Term 1</dt>
 <dd>Definition 1</dd>
@@ -147,96 +153,98 @@ Term 2
 </dl>`);
 });
 
-test('emoji', () => {
-  expect(md.render(':smile:').trim()).toBe('<p data-sl="1">😄</p>');
-  expect(md.render(':whale:').trim()).toBe('<p data-sl="1">🐳</p>');
+test('emoji', async () => {
+  expect((await md.render(':smile:')).trim()).toBe('<p data-sl="1">😄</p>');
+  expect((await md.render(':whale:')).trim()).toBe('<p data-sl="1">🐳</p>');
 });
 
-test('containers', () => {
+test('containers', async () => {
   expect(
-    md
-      .render(
+    (
+      await md.render(
         `::: success
 You did it!
 :::`,
       )
-      .trim(),
+    ).trim(),
   ).toBe(`<div class="success" data-sl="1">
 <p>You did it!</p>
 </div>`);
 
   expect(
-    md
-      .render(
+    (
+      await md.render(
         `::: info
 info
 :::`,
       )
-      .trim(),
+    ).trim(),
   ).toBe(`<div class="info" data-sl="1">
 <p>info</p>
 </div>`);
 
   expect(
-    md
-      .render(
+    (
+      await md.render(
         `::: warning
 *here be dragons*
 :::`,
       )
-      .trim(),
+    ).trim(),
   ).toBe(`<div class="warning" data-sl="1">
 <p><em>here be dragons</em></p>
 </div>`);
 
   expect(
-    md
-      .render(
+    (
+      await md.render(
         `::: danger
 danger
 :::`,
       )
-      .trim(),
+    ).trim(),
   ).toBe(`<div class="danger" data-sl="1">
 <p>danger</p>
 </div>`);
 
   expect(
-    md
-      .render(
+    (
+      await md.render(
         `::: unknown
 unknown
 :::`,
       )
-      .trim(),
+    ).trim(),
   ).toBe(`<p data-sl="1">::: unknown
 unknown
 :::</p>`);
 });
 
-test('Chinese breaks', () => {
-  expect(md.render('春风\n得意').trim()).toBe('<p data-sl="1">春风\n得意</p>');
-  expect(md.render('Hello\nworld!').trim()).toBe(
+test('Chinese breaks', async () => {
+  expect((await md.render('春风\n得意')).trim()).toBe(
+    '<p data-sl="1">春风\n得意</p>',
+  );
+  expect((await md.render('Hello\nworld!')).trim()).toBe(
     '<p data-sl="1">Hello\nworld!</p>',
   );
 });
 
-test('slugify', () => {
-  expect(md.render('# heading:smile:').trim()).toBe(
+test('slugify', async () => {
+  expect((await md.render('# heading:smile:')).trim()).toBe(
     '<h1 id="heading" data-sl="1"><a class="anchor" href="#heading"><span class="octicon octicon-link"></span></a>heading😄</h1>',
   );
-  expect(md.render('# heading :fa-smile:').trim()).toBe(
+  expect((await md.render('# heading :fa-smile:')).trim()).toBe(
     '<h1 id="heading-fa-smile" data-sl="1"><a class="anchor" href="#heading-fa-smile"><span class="octicon octicon-link"></span></a>heading <i class="fa fa-smile"></i></h1>',
   );
 });
 
-test('toc', () => {
+test('toc', async () => {
   expect(
-    md
-      .render(
+    (
+      await md.render(
         '# heading 1\n## heading 2:heart:\n\n[toc]\n\n### heading 3\n\n### heading 3',
       )
-      .trim(),
+    ).trim(),
   ).toBe(
     `<h1 id="heading-1" data-sl="1"><a class="anchor" href="#heading-1"><span class="octicon octicon-link"></span></a>heading 1</h1>
 <h2 id="heading-2" data-sl="2"><a class="anchor" href="#heading-2"><span class="octicon octicon-link"></span></a>heading 2❤️</h2>
@@ -253,8 +261,8 @@ test('toc', () => {
   );
 });
 
-test('lists', () => {
-  expect(md.render('- heading 2\n  - heading 3\n  - heading 3').trim())
+test('lists', async () => {
+  expect((await md.render('- heading 2\n  - heading 3\n  - heading 3')).trim())
     .toBe(`<ul data-sl="1">
 <li>heading 2
 <ul>
@@ -265,53 +273,51 @@ test('lists', () => {
 </ul>`);
 });
 
-test('font-awesome', () => {
-  expect(md.render(':fa-smile:').trim()).toBe(
+test('font-awesome', async () => {
+  expect((await md.render(':fa-smile:')).trim()).toBe(
     '<p data-sl="1"><i class="fa fa-smile"></i></p>',
   );
-  expect(md.render(':fa-smile: :fa-flag:').trim()).toBe(
+  expect((await md.render(':fa-smile: :fa-flag:')).trim()).toBe(
     '<p data-sl="1"><i class="fa fa-smile"></i> <i class="fa fa-flag"></i></p>',
   );
-  expect(md.render(':fa-smile::fa-flag:').trim()).toBe(
+  expect((await md.render(':fa-smile::fa-flag:')).trim()).toBe(
     '<p data-sl="1"><i class="fa fa-smile"></i><i class="fa fa-flag"></i></p>',
   );
 });
 
-test('katex', () => {
+test('katex', async () => {
   expect(
-    md
-      .render('`$H_2O$`')
+    (await md.render('`$H_2O$`'))
       .trim()
       .startsWith('<p data-sl="1"><span class="katex">'),
   ).toBeTruthy();
   expect(
-    md
-      .render('```math\nH_2O\n```')
+    (await md.render('```math\nH_2O\n```'))
       .trim()
       .startsWith('<div><span class="katex-display"><span class="katex">'),
   ).toBeTruthy();
 });
 
-test('syntax highlight', () => {
-  expect(md.render('```typescript\nconst a = 1;\n```').trim()).toBe(
+test('syntax highlight', async () => {
+  expect((await md.render('```typescript\nconst a = 1;\n```')).trim()).toBe(
     '<pre data-sl="1"><code class="hljs"><span class="hljs-keyword">const</span> a = <span class="hljs-number">1</span>;</code></pre>',
   );
 });
 
-test('task list', () => {
-  expect(md.render('- [x] task 1\n- [ ] task 2').trim()).toBe(`<ul data-sl="1">
+test('task list', async () => {
+  expect((await md.render('- [x] task 1\n- [ ] task 2')).trim())
+    .toBe(`<ul data-sl="1">
 <li class="task-list-item"><input class="task-list-item-checkbox" type="checkbox" disabled checked> task 1</li>
 <li class="task-list-item"><input class="task-list-item-checkbox" type="checkbox" disabled> task 2</li>
 </ul>`);
 });
 
-test('chart.js', () => {
-  expect(md.render('```chartjs\n{"hello":1}\n```')).toBe(
-    '<canvas class="chartjs">{"hello":1}</canvas>',
-  );
-});
-
 // ref: https://github.com/markdown-it/markdown-it-cjk-breaks/pull/5
 test('no exception', () => {
-  expect(() => md.render('**a**\nb')).not.toThrow();
+  expect(async () => await md.render('**a**\nb')).not.toThrow();
+});
+
+test('flowcharts', async () => {
+  const html = await md.render('```flowchart\nA -> B\n```');
+  expect(html).toContain('</svg>');
 });

@@ -9,8 +9,9 @@ import insExt from 'markdown-it-ins';
 import markExt from 'markdown-it-mark';
 import subExt from 'markdown-it-sub';
 import supExt from 'markdown-it-sup';
+import { generate } from 'markplus-charts';
 
-import chartJsExt from './chart-js';
+import flowchartExt from './flowchart';
 import faExt from './font-awesome';
 import highlightExt from './highlight';
 import katexPlugin from './katex';
@@ -52,6 +53,25 @@ md = md.use(faExt);
 md = md.use(emojiExt);
 md = md.use(highlightExt);
 md = md.use(katexPlugin);
-md = md.use(chartJsExt);
+md = md.use(flowchartExt);
 
-export default md;
+const mde = {
+  render: async (content: string) => {
+    let html = md.render(content);
+    const promises: Promise<string>[] = [];
+    html = html.replace(
+      /<pre class="flowchart">([\s\S]*?)<\/pre>/g, // Regex to match the content
+      (_, code) => {
+        promises.push(generate(code));
+        return `<pre class="flowchart">${promises.length - 1}</pre>`;
+      },
+    );
+    const svgs = await Promise.all(promises);
+    for (let i = 0; i < svgs.length; i++) {
+      html = html.replace(`<pre class="flowchart">${i}</pre>`, svgs[i]);
+    }
+    return html;
+  },
+};
+
+export default mde;
