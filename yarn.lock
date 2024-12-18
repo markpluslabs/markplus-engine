@@ -1993,10 +1993,10 @@ jsx2str@^0.1.6:
   resolved "https://registry.yarnpkg.com/jsx2str/-/jsx2str-0.1.6.tgz#f11f3cbc1b28bf3b3439fa060cccf6e5a5476184"
   integrity sha512-hu2Aiza0Yi9FK02S8pJ7rt2qmV3aGzJUdQP9Bb6kFo5h5qbf1Bw2aZLGQ5hFE3Kay94HcPPQkQsmXk/Cf0Wbvg==
 
-katex@^0.16.17:
-  version "0.16.17"
-  resolved "https://registry.yarnpkg.com/katex/-/katex-0.16.17.tgz#72c588a0beca0cac10c30f447c2fb14647f773ed"
-  integrity sha512-OyzSrXBllz+Jdc9Auiw0kt21gbZ4hkz8Q5srVAb2U9INcYIfGKbxe+bvNvEz1bQ/NrDeRRho5eLCyk/L03maAw==
+katex@^0.16.18:
+  version "0.16.18"
+  resolved "https://registry.yarnpkg.com/katex/-/katex-0.16.18.tgz#20781284288bc52805c519e48ac756163ad4b1f3"
+  integrity sha512-LRuk0rPdXrecAFwQucYjMiIs0JFefk6N1q/04mlw14aVIVgxq1FO0MA9RiIIGVaKOB5GIP5GH4aBBNraZERmaQ==
   dependencies:
     commander "^8.3.0"
 
@@ -2125,10 +2125,10 @@ markdown-it@^14.1.0:
     punycode.js "^2.3.1"
     uc.micro "^2.1.0"
 
-markplus-charts@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/markplus-charts/-/markplus-charts-0.2.0.tgz#115a212ac723617b546acba8fff4c28f88868fa4"
-  integrity sha512-aVUs9O4aeO6BkelMRpHWUvCnuhNemk1BwMvBxJXSLb2pEy8G55tnpRI2FK8s83uLGJSv039IgKBzd+39B0hghA==
+markplus-charts@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/markplus-charts/-/markplus-charts-0.2.1.tgz#17e8e045b14008b612b1f0c9b601969e5dc1157d"
+  integrity sha512-uUdLpW1ilzDgnFKFmGkxxot01BXvLHRN206YoU1tXRQrBX8pbmHMMc0ac4Q5AnGnBJjJVI99gPlsYcB6L1wMDg==
   dependencies:
     chevrotain "^11.0.3"
     elkjs "^0.9.3"

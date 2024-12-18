@@ -1,6 +1,6 @@
 {
   "name": "markplus-engine",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "keywords": [
     "markdown",
     "markplus",
@@ -26,7 +26,7 @@
   "dependencies": {
     "@sindresorhus/slugify": "^2.2.1",
     "highlight.js": "^11.11.0",
-    "katex": "^0.16.17",
+    "katex": "^0.16.18",
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^9.2.0",
     "markdown-it-container": "^4.0.0",
@@ -38,7 +38,7 @@
     "markdown-it-regex": "^0.2.0",
     "markdown-it-sub": "^2.0.0",
     "markdown-it-sup": "^2.0.0",
-    "markplus-charts": "^0.2.0"
+    "markplus-charts": "^0.2.1"
   },
   "devDependencies": {
     "@types/katex": "^0.16.7",
