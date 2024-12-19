@@ -1,6 +1,6 @@
 {
   "name": "markplus-engine",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "keywords": [
     "markdown",
     "markplus",
@@ -17,8 +17,8 @@
   },
   "license": "MIT",
   "type": "module",
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "scripts": {
     "lint": "eslint . --fix && prettier --write . && sort-package-json",
     "test": "vitest run"
@@ -38,7 +38,7 @@
     "markdown-it-regex": "^0.2.0",
     "markdown-it-sub": "^2.0.0",
     "markdown-it-sup": "^2.0.0",
-    "markplus-charts": "^0.2.1"
+    "markplus-charts": "^0.2.4"
   },
   "devDependencies": {
     "@types/katex": "^0.16.7",

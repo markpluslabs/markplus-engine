@@ -2125,10 +2125,10 @@ markdown-it@^14.1.0:
     punycode.js "^2.3.1"
     uc.micro "^2.1.0"
 
-markplus-charts@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/markplus-charts/-/markplus-charts-0.2.1.tgz#17e8e045b14008b612b1f0c9b601969e5dc1157d"
-  integrity sha512-uUdLpW1ilzDgnFKFmGkxxot01BXvLHRN206YoU1tXRQrBX8pbmHMMc0ac4Q5AnGnBJjJVI99gPlsYcB6L1wMDg==
+markplus-charts@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/markplus-charts/-/markplus-charts-0.2.4.tgz#2fcb9751f4a1d4e296ff9952631d28232a3e6f18"
+  integrity sha512-nfj8lbptl63DcbhjPR/lhOHK/DyejAQqD/Do4IqOjuPBU2QDHmLNYp7Z49ZEYKfh9/UttHOSTXuOq59l5GQl4Q==
   dependencies:
     chevrotain "^11.0.3"
     elkjs "^0.9.3"
