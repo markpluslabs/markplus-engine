@@ -1,6 +1,6 @@
 {
   "name": "markplus-engine",
-  "version": "0.1.7",
+  "version": "0.1.9",
   "keywords": [
     "markdown",
     "markplus",
@@ -51,5 +51,9 @@
     "typescript": "^5.7.2",
     "vitest": "^2.1.8",
     "yarn-upgrade-all": "^0.7.4"
-  }
+  },
+  "files": [
+    "lib",
+    "src"
+  ]
 }
