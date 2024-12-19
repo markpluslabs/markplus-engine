@@ -11,13 +11,13 @@ import subExt from 'markdown-it-sub';
 import supExt from 'markdown-it-sup';
 import { generate } from 'markplus-charts';
 
-import flowchartExt from './flowchart';
-import faExt from './font-awesome';
-import highlightExt from './highlight';
-import katexPlugin from './katex';
-import sourceMapExt from './source-map';
-import taskListExt from './task-list';
-import tocExt from './toc';
+import flowchartExt from './flowchart.js';
+import faExt from './font-awesome.js';
+import highlightExt from './highlight.js';
+import katexPlugin from './katex.js';
+import sourceMapExt from './source-map.js';
+import taskListExt from './task-list.js';
+import tocExt from './toc.js';
 
 let md = markdownit({
   html: true,

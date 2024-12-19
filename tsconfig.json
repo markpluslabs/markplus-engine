@@ -2,7 +2,9 @@
   "compilerOptions": {
     "outDir": "lib",
     "esModuleInterop": true,
-    "declaration": true
+    "declaration": true,
+    "module": "nodenext",
+    "moduleResolution": "nodenext"
   },
   "files": ["./src/index.ts"]
 }
