@@ -1,6 +1,6 @@
 {
   "name": "markplus-engine",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "keywords": [
     "markdown",
     "markplus",
@@ -20,6 +20,8 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
+    "prepublishOnly": "tsc",
+    "postpublish": "rm -rf lib",
     "test": "vitest run"
   },
   "dependencies": {
