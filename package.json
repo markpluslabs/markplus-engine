@@ -1,6 +1,6 @@
 {
   "name": "markplus-engine",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "keywords": [
     "markdown",
     "markplus",
@@ -39,7 +39,7 @@
     "markdown-it-regex": "^0.2.0",
     "markdown-it-sub": "^2.0.0",
     "markdown-it-sup": "^2.0.0",
-    "markplus-charts": "^0.2.4"
+    "markplus-charts": "^0.2.5"
   },
   "devDependencies": {
     "@types/katex": "^0.16.7",
