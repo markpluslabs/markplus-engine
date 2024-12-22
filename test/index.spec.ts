@@ -1,34 +1,34 @@
-import { expect, test } from 'vitest';
+import { expect, test } from "vitest";
 
-import md from '../src';
+import md from "../src";
 
-test('headings', async () => {
+test("headings", async () => {
   for (let i = 1; i <= 6; i++) {
-    expect((await md.render(`${'#'.repeat(i)} heading ${i}`)).trim()).toBe(
+    expect((await md.render(`${"#".repeat(i)} heading ${i}`)).trim()).toBe(
       `<h${i} id="heading-${i}" data-sl="1"><a class="anchor" href="#heading-${i}"><span class="octicon octicon-link"></span></a>heading ${i}</h${i}>`,
     );
   }
 });
 
-test('stylings', async () => {
-  expect((await md.render('**bold**')).trim()).toBe(
+test("stylings", async () => {
+  expect((await md.render("**bold**")).trim()).toBe(
     '<p data-sl="1"><strong>bold</strong></p>',
   );
-  expect((await md.render('*italic*')).trim()).toBe(
+  expect((await md.render("*italic*")).trim()).toBe(
     '<p data-sl="1"><em>italic</em></p>',
   );
-  expect((await md.render('~~strikethrough~~')).trim()).toBe(
+  expect((await md.render("~~strikethrough~~")).trim()).toBe(
     '<p data-sl="1"><s>strikethrough</s></p>',
   );
-  expect((await md.render('++underline++')).trim()).toBe(
+  expect((await md.render("++underline++")).trim()).toBe(
     '<p data-sl="1"><ins>underline</ins></p>',
   );
-  expect((await md.render('==mark==')).trim()).toBe(
+  expect((await md.render("==mark==")).trim()).toBe(
     '<p data-sl="1"><mark>mark</mark></p>',
   );
 });
 
-test('tables', async () => {
+test("tables", async () => {
   expect(
     (
       await md.render(
@@ -58,25 +58,25 @@ test('tables', async () => {
 </table>`);
 });
 
-test('HTML', async () => {
-  expect((await md.render('<strong>hello</strong>')).trim()).toBe(
+test("HTML", async () => {
+  expect((await md.render("<strong>hello</strong>")).trim()).toBe(
     '<p data-sl="1"><strong>hello</strong></p>',
   );
 });
 
-test('sub and sup', async () => {
-  expect((await md.render('H~2~O')).trim()).toBe(
+test("sub and sup", async () => {
+  expect((await md.render("H~2~O")).trim()).toBe(
     '<p data-sl="1">H<sub>2</sub>O</p>',
   );
-  expect((await md.render('2^10^')).trim()).toBe(
+  expect((await md.render("2^10^")).trim()).toBe(
     '<p data-sl="1">2<sup>10</sup></p>',
   );
-  expect((await md.render('29^th^')).trim()).toBe(
+  expect((await md.render("29^th^")).trim()).toBe(
     '<p data-sl="1">29<sup>th</sup></p>',
   );
 });
 
-test('footnote inline', async () => {
+test("footnote inline", async () => {
   expect(
     (
       await md.render(
@@ -86,7 +86,8 @@ note.]`,
       )
     ).trim(),
   )
-    .toBe(`<p data-sl="1">Here is an inline note.<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
+    .toBe(
+      `<p data-sl="1">Here is an inline note.<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
 <hr class="footnotes-sep">
 <section class="footnotes">
 <ol class="footnotes-list">
@@ -95,10 +96,11 @@ you don't have to pick an identifier and move down to type the
 note. <a href="#fnref1" class="footnote-backref">\u21a9\uFE0E</a></p>
 </li>
 </ol>
-</section>`);
+</section>`,
+    );
 });
 
-test('footnote block', async () => {
+test("footnote block", async () => {
   expect(
     (
       await md.render(
@@ -116,7 +118,8 @@ isn't indented.`,
       )
     ).trim(),
   )
-    .toBe(`<p data-sl="1">Here is a footnote reference,<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup> and another.<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></p>
+    .toBe(
+      `<p data-sl="1">Here is a footnote reference,<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup> and another.<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></p>
 <p data-sl="10">This paragraph won't be part of the note, because it
 isn't indented.</p>
 <hr class="footnotes-sep">
@@ -129,10 +132,11 @@ isn't indented.</p>
 belong to the previous footnote. <a href="#fnref2" class="footnote-backref">\u21a9\uFE0E</a></p>
 </li>
 </ol>
-</section>`);
+</section>`,
+    );
 });
 
-test('definition list', async () => {
+test("definition list", async () => {
   expect(
     (
       await md.render(
@@ -153,12 +157,12 @@ Term 2
 </dl>`);
 });
 
-test('emoji', async () => {
-  expect((await md.render(':smile:')).trim()).toBe('<p data-sl="1">😄</p>');
-  expect((await md.render(':whale:')).trim()).toBe('<p data-sl="1">🐳</p>');
+test("emoji", async () => {
+  expect((await md.render(":smile:")).trim()).toBe('<p data-sl="1">😄</p>');
+  expect((await md.render(":whale:")).trim()).toBe('<p data-sl="1">🐳</p>');
 });
 
-test('containers', async () => {
+test("containers", async () => {
   expect(
     (
       await md.render(
@@ -220,29 +224,29 @@ unknown
 :::</p>`);
 });
 
-test('Chinese breaks', async () => {
-  expect((await md.render('春风\n得意')).trim()).toBe(
+test("Chinese breaks", async () => {
+  expect((await md.render("春风\n得意")).trim()).toBe(
     '<p data-sl="1">春风\n得意</p>',
   );
-  expect((await md.render('Hello\nworld!')).trim()).toBe(
+  expect((await md.render("Hello\nworld!")).trim()).toBe(
     '<p data-sl="1">Hello\nworld!</p>',
   );
 });
 
-test('slugify', async () => {
-  expect((await md.render('# heading:smile:')).trim()).toBe(
+test("slugify", async () => {
+  expect((await md.render("# heading:smile:")).trim()).toBe(
     '<h1 id="heading" data-sl="1"><a class="anchor" href="#heading"><span class="octicon octicon-link"></span></a>heading😄</h1>',
   );
-  expect((await md.render('# heading :fa-smile:')).trim()).toBe(
+  expect((await md.render("# heading :fa-smile:")).trim()).toBe(
     '<h1 id="heading-fa-smile" data-sl="1"><a class="anchor" href="#heading-fa-smile"><span class="octicon octicon-link"></span></a>heading <i class="fa fa-smile"></i></h1>',
   );
 });
 
-test('toc', async () => {
+test("toc", async () => {
   expect(
     (
       await md.render(
-        '# heading 1\n## heading 2:heart:\n\n[toc]\n\n### heading 3\n\n### heading 3',
+        "# heading 1\n## heading 2:heart:\n\n[toc]\n\n### heading 3\n\n### heading 3",
       )
     ).trim(),
   ).toBe(
@@ -261,8 +265,8 @@ test('toc', async () => {
   );
 });
 
-test('lists', async () => {
-  expect((await md.render('- heading 2\n  - heading 3\n  - heading 3')).trim())
+test("lists", async () => {
+  expect((await md.render("- heading 2\n  - heading 3\n  - heading 3")).trim())
     .toBe(`<ul data-sl="1">
 <li>heading 2
 <ul>
@@ -273,39 +277,39 @@ test('lists', async () => {
 </ul>`);
 });
 
-test('font-awesome', async () => {
-  expect((await md.render(':fa-smile:')).trim()).toBe(
+test("font-awesome", async () => {
+  expect((await md.render(":fa-smile:")).trim()).toBe(
     '<p data-sl="1"><i class="fa fa-smile"></i></p>',
   );
-  expect((await md.render(':fa-smile: :fa-flag:')).trim()).toBe(
+  expect((await md.render(":fa-smile: :fa-flag:")).trim()).toBe(
     '<p data-sl="1"><i class="fa fa-smile"></i> <i class="fa fa-flag"></i></p>',
   );
-  expect((await md.render(':fa-smile::fa-flag:')).trim()).toBe(
+  expect((await md.render(":fa-smile::fa-flag:")).trim()).toBe(
     '<p data-sl="1"><i class="fa fa-smile"></i><i class="fa fa-flag"></i></p>',
   );
 });
 
-test('katex', async () => {
+test("katex", async () => {
   expect(
-    (await md.render('`$H_2O$`'))
+    (await md.render("`$H_2O$`"))
       .trim()
       .startsWith('<p data-sl="1"><span class="katex">'),
   ).toBeTruthy();
   expect(
-    (await md.render('```math\nH_2O\n```'))
+    (await md.render("```math\nH_2O\n```"))
       .trim()
       .startsWith('<div><span class="katex-display"><span class="katex">'),
   ).toBeTruthy();
 });
 
-test('syntax highlight', async () => {
-  expect((await md.render('```typescript\nconst a = 1;\n```')).trim()).toBe(
+test("syntax highlight", async () => {
+  expect((await md.render("```typescript\nconst a = 1;\n```")).trim()).toBe(
     '<pre data-sl="1"><code class="hljs"><span class="hljs-keyword">const</span> a = <span class="hljs-number">1</span>;</code></pre>',
   );
 });
 
-test('task list', async () => {
-  expect((await md.render('- [x] task 1\n- [ ] task 2')).trim())
+test("task list", async () => {
+  expect((await md.render("- [x] task 1\n- [ ] task 2")).trim())
     .toBe(`<ul data-sl="1">
 <li class="task-list-item"><input class="task-list-item-checkbox" type="checkbox" disabled checked> task 1</li>
 <li class="task-list-item"><input class="task-list-item-checkbox" type="checkbox" disabled> task 2</li>
@@ -313,11 +317,13 @@ test('task list', async () => {
 });
 
 // ref: https://github.com/markdown-it/markdown-it-cjk-breaks/pull/5
-test('no exception', () => {
-  expect(async () => await md.render('**a**\nb')).not.toThrow();
+test("no exception", () => {
+  expect(async () => await md.render("**a**\nb")).not.toThrow();
 });
 
-test('flowcharts', async () => {
-  const html = await md.render('```flowchart\nA -> B\n```');
-  expect(html).toContain('</svg>');
+test("flowcharts", async () => {
+  let html = await md.render("```flowchart\nA -> B\n```");
+  expect(html).toContain("</svg>");
+  html = await md.render("```flowchart\nA -> \n```");
+  expect(html).toContain("</pre>"); // syntax error
 });

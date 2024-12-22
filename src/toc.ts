@@ -1,6 +1,6 @@
-import markdownit from 'markdown-it';
-import { RuleBlock } from 'markdown-it/lib/parser_block.mjs';
-import Token from 'markdown-it/lib/token.mjs';
+import markdownit from "markdown-it";
+import { RuleBlock } from "markdown-it/lib/parser_block.mjs";
+import Token from "markdown-it/lib/token.mjs";
 
 interface TocItem {
   title: string;
@@ -14,7 +14,7 @@ const tocExt = (md: markdownit, options: { headings: number[] }) => {
     const start = state.bMarks[startLine] + state.tShift[startLine];
     const max = state.eMarks[startLine];
     const line = state.src.substring(start, max);
-    if (line !== '[toc]') {
+    if (line !== "[toc]") {
       return false;
     }
     if (silent) {
@@ -22,17 +22,17 @@ const tocExt = (md: markdownit, options: { headings: number[] }) => {
     }
     state.line = startLine + 1;
 
-    let token = state.push('toc_open', 'ul', 1);
-    token.markup = '[toc]';
+    let token = state.push("toc_open", "ul", 1);
+    token.markup = "[toc]";
     token.map = [startLine, state.line];
 
-    token = state.push('toc_body', '', 0);
-    token.markup = '';
+    token = state.push("toc_body", "", 0);
+    token.markup = "";
     token.map = [startLine, state.line];
     token.children = [];
 
-    token = state.push('toc_close', 'ul', -1);
-    token.markup = '';
+    token = state.push("toc_close", "ul", -1);
+    token.markup = "";
 
     return true;
   };
@@ -43,16 +43,16 @@ const tocExt = (md: markdownit, options: { headings: number[] }) => {
 
     for (let i = 0; i < tokens.length; i++) {
       const token = tokens[i];
-      if (token.type === 'heading_open') {
+      if (token.type === "heading_open") {
         const level = parseInt(token.tag.substring(1));
         if (!options.headings.includes(level)) {
           continue;
         }
-        const id = token.attrs!.find((attr) => attr[0] === 'id')![1];
+        const id = token.attrs!.find((attr) => attr[0] === "id")![1];
         const title = tokens[i + 1]
-          .children!.filter((t) => ['text', 'code_inline'].includes(t.type))
+          .children!.filter((t) => ["text", "code_inline"].includes(t.type))
           .map((t) => t.content)
-          .join('')
+          .join("")
           .trim();
         const item: TocItem = {
           title,
@@ -75,15 +75,15 @@ const tocExt = (md: markdownit, options: { headings: number[] }) => {
   }
 
   function renderToc(items: TocItem[]): string {
-    let r = '\n<ul>\n';
+    let r = "\n<ul>\n";
     for (const item of items) {
       r += `<li><a href="${item.href}">${item.title}</a>`;
       if (item.children.length > 0) {
         r += renderToc(item.children);
       }
-      r += '</li>\n';
+      r += "</li>\n";
     }
-    r += '</ul>\n';
+    r += "</ul>\n";
     return r;
   }
 
@@ -93,7 +93,7 @@ const tocExt = (md: markdownit, options: { headings: number[] }) => {
     return r.substring(6, r.length - 6); // remove the outer <ul></ul>
   };
 
-  md.block.ruler.after('heading', 'toc', toc);
+  md.block.ruler.after("heading", "toc", toc);
 };
 
 export default tocExt;

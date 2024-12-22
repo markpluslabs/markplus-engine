@@ -20,7 +20,6 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
-    "lint": "eslint . --fix && prettier --write . && sort-package-json",
     "test": "vitest run"
   },
   "dependencies": {
@@ -44,7 +43,6 @@
     "@types/katex": "^0.16.7",
     "@types/markdown-it": "^14.1.2",
     "@types/node": "^22.10.2",
-    "eslint-config-tyler": "^0.2.2",
     "sort-package-json": "^2.12.0",
     "tsx": "^4.19.2",
     "ttpt": "^0.13.0",

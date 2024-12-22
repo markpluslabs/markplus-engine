@@ -1,23 +1,23 @@
-import slugify from '@sindresorhus/slugify';
-import markdownit from 'markdown-it';
-import anchorExt from 'markdown-it-anchor';
-import containerExt from 'markdown-it-container';
-import deflistExt from 'markdown-it-deflist';
-import { full as emojiExt } from 'markdown-it-emoji';
-import footnoteExt from 'markdown-it-footnote';
-import insExt from 'markdown-it-ins';
-import markExt from 'markdown-it-mark';
-import subExt from 'markdown-it-sub';
-import supExt from 'markdown-it-sup';
-import { generate } from 'markplus-charts';
+import slugify from "@sindresorhus/slugify";
+import markdownit from "markdown-it";
+import anchorExt from "markdown-it-anchor";
+import containerExt from "markdown-it-container";
+import deflistExt from "markdown-it-deflist";
+import { full as emojiExt } from "markdown-it-emoji";
+import footnoteExt from "markdown-it-footnote";
+import insExt from "markdown-it-ins";
+import markExt from "markdown-it-mark";
+import subExt from "markdown-it-sub";
+import supExt from "markdown-it-sup";
+import { generate } from "markplus-charts";
 
-import flowchartExt from './flowchart.js';
-import faExt from './font-awesome.js';
-import highlightExt from './highlight.js';
-import katexPlugin from './katex.js';
-import sourceMapExt from './source-map.js';
-import taskListExt from './task-list.js';
-import tocExt from './toc.js';
+import flowchartExt from "./flowchart.js";
+import faExt from "./font-awesome.js";
+import highlightExt from "./highlight.js";
+import katexPlugin from "./katex.js";
+import sourceMapExt from "./source-map.js";
+import taskListExt from "./task-list.js";
+import tocExt from "./toc.js";
 
 let md = markdownit({
   html: true,
@@ -33,17 +33,17 @@ md = md.use(subExt);
 md = md.use(supExt);
 md = md.use(footnoteExt);
 md = md.use(deflistExt);
-md = md.use(containerExt, 'success');
-md = md.use(containerExt, 'info');
-md = md.use(containerExt, 'warning');
-md = md.use(containerExt, 'danger');
+md = md.use(containerExt, "success");
+md = md.use(containerExt, "info");
+md = md.use(containerExt, "warning");
+md = md.use(containerExt, "danger");
 md = md.use(anchorExt, {
   tabIndex: false,
   permalink: anchorExt.permalink.linkInsideHeader({
     symbol: '<span class="octicon octicon-link"></span>',
-    placement: 'before',
+    placement: "before",
     space: false,
-    class: 'anchor',
+    class: "anchor",
   }),
   slugify: (s) => slugify(s),
 });
@@ -66,9 +66,15 @@ const mde = {
         return `<pre class="flowchart">${promises.length - 1}</pre>`;
       },
     );
-    const svgs = await Promise.all(promises);
-    for (let i = 0; i < svgs.length; i++) {
-      html = html.replace(`<pre class="flowchart">${i}</pre>`, svgs[i]);
+    for (let i = 0; i < promises.length; i++) {
+      const promise = promises[i];
+      let svg = "";
+      try {
+        svg = await promise;
+      } catch (e) {
+        svg = `<pre>${e.message}</pre>`;
+      }
+      html = html.replace(`<pre class="flowchart">${i}</pre>`, svg);
     }
     return html;
   },

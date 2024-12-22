@@ -1,4 +1,4 @@
-import markdownit from 'markdown-it';
+import markdownit from "markdown-it";
 
 const taskListExt = (md: markdownit) => {
   let taskListItem = false;
@@ -6,11 +6,11 @@ const taskListExt = (md: markdownit) => {
   md.renderer.renderToken = (tokens, idx, options) => {
     const token = tokens[idx];
     if (
-      token.type === 'list_item_open' &&
-      (tokens[idx + 2].content.startsWith('[ ] ') ||
-        tokens[idx + 2].content.startsWith('[x] '))
+      token.type === "list_item_open" &&
+      (tokens[idx + 2].content.startsWith("[ ] ") ||
+        tokens[idx + 2].content.startsWith("[x] "))
     ) {
-      token.attrPush(['class', 'task-list-item']);
+      token.attrPush(["class", "task-list-item"]);
       taskListItem = true;
     }
     return renderToken(tokens, idx, options);
@@ -20,10 +20,15 @@ const taskListExt = (md: markdownit) => {
   md.renderer.renderInline = (tokens, options, env) => {
     let r = renderInline(tokens, options, env);
     if (taskListItem) {
-      if (r.startsWith('[ ] ')) {
-        r = `<input class="task-list-item-checkbox" type="checkbox" disabled> ${r.slice(4)}`;
-      } else if (r.startsWith('[x] ')) {
-        r = `<input class="task-list-item-checkbox" type="checkbox" disabled checked> ${r.slice(4)}`;
+      if (r.startsWith("[ ] ")) {
+        r = `<input class="task-list-item-checkbox" type="checkbox" disabled> ${
+          r.slice(4)
+        }`;
+      } else if (r.startsWith("[x] ")) {
+        r =
+          `<input class="task-list-item-checkbox" type="checkbox" disabled checked> ${
+            r.slice(4)
+          }`;
       }
       taskListItem = false;
     }

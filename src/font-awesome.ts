@@ -1,12 +1,12 @@
-import markdownit from 'markdown-it';
-import { coreRuler, rendererRule } from 'markdown-it-regex';
+import markdownit from "markdown-it";
+import { coreRuler, rendererRule } from "markdown-it-regex";
 
 const faExt = (md: markdownit) => {
   const faRegex = new RegExp(
-    ':(fa(?:-[0-9a-z]+?)+?(?: fa(?:-[0-9a-z]+?)+?)*?):',
+    ":(fa(?:-[0-9a-z]+?)+?(?: fa(?:-[0-9a-z]+?)+?)*?):",
   );
   const options = {
-    name: 'font-awesome',
+    name: "font-awesome",
     regex: faRegex,
     replace: (match: string) => `<i class="fa ${match}"></i>`,
   };
