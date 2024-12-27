@@ -1,6 +1,6 @@
 {
   "name": "markplus-engine",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "keywords": [
     "markdown",
     "markplus",
@@ -25,7 +25,6 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@sindresorhus/slugify": "^2.2.1",
     "highlight.js": "^11.11.0",
     "katex": "^0.16.18",
     "markdown-it": "^14.1.0",

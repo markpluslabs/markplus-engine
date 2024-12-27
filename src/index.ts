@@ -1,4 +1,3 @@
-import slugify from "@sindresorhus/slugify";
 import markdownit from "markdown-it";
 import anchorExt from "markdown-it-anchor";
 import containerExt from "markdown-it-container";
@@ -18,6 +17,7 @@ import katexPlugin from "./katex.js";
 import sourceMapExt from "./source-map.js";
 import taskListExt from "./task-list.js";
 import tocExt from "./toc.js";
+import slugify from "./slugify.js";
 
 let md = markdownit({
   html: true,

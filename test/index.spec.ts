@@ -1,6 +1,7 @@
 import { expect, test } from "vitest";
 
 import md from "../src";
+import slugify from "../src/slugify";
 
 test("headings", async () => {
   for (let i = 1; i <= 6; i++) {
@@ -326,4 +327,11 @@ test("flowcharts", async () => {
   expect(html).toContain("</svg>");
   html = await md.render("```flowchart\nA -> \n```");
   expect(html).toContain("</pre>"); // syntax error
+});
+
+test("slugify", () => {
+  const text = "Hello World! 你好世界 Привет-мир Version 2.0 一二三";
+  expect(slugify(text)).toBe(
+    "hello-world-你好世界-привет-мир-version-2-0-一二三",
+  );
 });
