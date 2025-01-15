@@ -70,7 +70,7 @@ const mde = {
       const promise = promises[i];
       let svg = "";
       try {
-        svg = await promise;
+        svg = `<div>${await promise}</div>`;
       } catch (e) {
         svg = `<pre>${e.message}</pre>`;
       }
