@@ -309,6 +309,12 @@ test("syntax highlight", async () => {
   );
 });
 
+test("syntax highlight - language name trailing space", async () => {
+  expect((await md.render("```typescript \nconst a = 1;\n```")).trim()).toBe(
+    '<pre data-sl="1"><code class="hljs"><span class="hljs-keyword">const</span> a = <span class="hljs-number">1</span>;</code></pre>',
+  );
+});
+
 test("task list", async () => {
   expect((await md.render("- [x] task 1\n- [ ] task 2")).trim())
     .toBe(`<ul data-sl="1">
