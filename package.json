@@ -1,6 +1,6 @@
 {
   "name": "markplus-engine",
-  "version": "0.2.5",
+  "version": "0.2.7",
   "keywords": [
     "markdown",
     "markplus",
@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "highlight.js": "^11.11.1",
-    "katex": "^0.16.20",
+    "katex": "^0.16.21",
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^9.2.0",
     "markdown-it-container": "^4.0.0",
@@ -43,12 +43,12 @@
   "devDependencies": {
     "@types/katex": "^0.16.7",
     "@types/markdown-it": "^14.1.2",
-    "@types/node": "^22.10.7",
+    "@types/node": "^22.13.1",
     "sort-package-json": "^2.14.0",
     "tsx": "^4.19.2",
     "ttpt": "^0.13.0",
     "typescript": "^5.7.3",
-    "vitest": "^3.0.1",
+    "vitest": "^3.0.5",
     "yarn-upgrade-all": "^0.7.4"
   },
   "files": [
